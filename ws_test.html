@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<script>
+  if ('WebSocket' in window) {
+      alert('您的浏览器支持WebSocket！请按F12打开控制台，并选择“Console”标签，然后再点击该弹出框的“确定”');
+      let url = 'ws://172.xx.x.xx:9004/msg/ws';
+      let ws = new WebSocket(url);
+      ws.onopen = function (evt) {
+        ws.send('ping');
+        console.log('data sending...' + evt.data);
+      }
+      ws.onmessage = function (evt) {
+        console.log('received data: ' + evt.data);
+        ws.close();
+      }
+      ws.onclose = function (evt) {
+        console.log('连接关闭' + evt);
+      }
+      ws.onerror = function (evt) {
+        console.log('遇到错误' + evt);
+      }
+  }
+</script>
+</body>
+</html>
